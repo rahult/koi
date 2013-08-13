@@ -28,7 +28,11 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-ui-rails'
 
   # Database
-  s.add_dependency 'mysql2'                        , '~> 0.3.11'
+  # s.add_dependency 'mysql2'                        , '~> 0.3.11'
+  s.add_dependency 'jruby-openssl'
+  s.add_dependency 'activerecord-jdbcmysql-adapter'
+
+  s.add_dependency 'puma'
 
   # Authorization
   s.add_dependency 'devise'                        , '~> 3.0.1'
@@ -97,22 +101,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pry'
 
   # Console Replacement
-  s.add_development_dependency 'pry-doc'
-
-  # Console Replacement
-  s.add_development_dependency 'pry-git'
-
-  # Console Replacement
   s.add_development_dependency 'pry-rails'
 
   # Console Replacement
   s.add_development_dependency 'pry-remote'
-
-  # Console Replacement
-  s.add_development_dependency 'pry-theme'
-
-  # Powder makes POW easy
-  s.add_development_dependency 'powder'
 
   # Clever Data Generator
   s.add_development_dependency 'forgery'
@@ -125,7 +117,6 @@ Gem::Specification.new do |s|
 
   # Error display Replacement
   s.add_development_dependency 'better_errors'
-  s.add_development_dependency 'binding_of_caller'
 
   # Guard for automated testing
   s.add_development_dependency 'guard'

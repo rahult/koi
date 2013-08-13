@@ -30,9 +30,9 @@ gem 'i18n-active_record'        , :git => 'git://github.com/svenfuchs/i18n-activ
 
 gem 'better_errors'
 
-gem "binding_of_caller"
-
 gem 'pry'
+
+gem 'puma'
 
 # Gems used only for assets and not required
 # in production environments by default.

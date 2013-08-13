@@ -50,7 +50,7 @@ Koi::Settings.collection = settings
 Koi::Settings.resource = resource_settings
 
 # Caching enabled by default
-Koi::Caching.enabled = true
+Koi::Caching.enabled = false
 
 # Expiry in 60.minutes by default
 Koi::Caching.expires_in = 5.minutes
