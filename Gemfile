@@ -44,3 +44,7 @@ group :assets do
   gem 'uglifier'                , '>= 1.0.3'
   gem 'coffee-rails'
 end
+
+group :development do
+  gem 'puma'
+end

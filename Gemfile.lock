@@ -237,6 +237,8 @@ GEM
       slop (~> 3.0)
     pry-theme (0.2.0)
       json
+    puma (2.5.0)
+      rack (>= 1.1, < 2.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -360,6 +362,7 @@ DEPENDENCIES
   pry-rails
   pry-remote
   pry-theme
+  puma
   ruby_gntp
   sass-rails (~> 3.1)
   seedbank (~> 0.2.1)
