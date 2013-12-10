@@ -1,6 +1,6 @@
 # Add .ruby-version for RVM/RBENV.
 create_file '.ruby-version', <<-END
-2.0.0-p247
+2.0.0-p353
 END
 
 # Add .ruby-gemset for RVM
@@ -27,7 +27,7 @@ gem 'koi_config'                , git: 'https://github.com/katalyst/koi_config.g
 
 # Koi CMS
 gem 'koi'                       , git: 'https://github.com/katalyst/koi.git',
-                                  tag: 'v1.0.0.rc5'
+                                  tag: 'v1.1.0.rc3'
 
 # Bowerbird
 gem 'bowerbird_v2'              , git: 'https://github.com/katalyst/bowerbird_v2.git'
@@ -42,9 +42,6 @@ gem 'unicorn'
 gem 'newrelic_rpm'
 
 gem 'ey_config'
-
-# Nested Forms
-gem 'cocoon'                    , git: "https://github.com/nathanvda/cocoon.git"
 
 gem_group :development do
   gem 'pry'
@@ -87,6 +84,17 @@ test:
   pool: 5
   username: root
   password: katalyst
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  host: localhost
+  database: #{@app_name}_development
+  pool: 5
+  username: root
+  password: katalyst
+
 END
 
 # Setup seed
@@ -194,15 +202,22 @@ gsub_file 'config/application.rb', 'config.active_record.whitelist_attributes = 
 # Compile Assets on Server
 gsub_file 'config/environments/production.rb', 'config.assets.compile = false', 'config.assets.compile = true'
 
-rake 'db:drop'
-rake 'db:create'
-rake 'db:migrate'
+# HACK: To by pass devise checking for secret key without initialization
+create_file 'config/initializers/devise.rb', <<-END
+Devise.setup do |config|
+  config.secret_key = 'Temporarily created to fix the devise install error'
+end
+END
 
 # Generate Devise Config
-generate('devise:install')
+generate('devise:install -f')
 
 # Change scoped views
 gsub_file 'config/initializers/devise.rb', '# config.scoped_views = false', 'config.scoped_views = true'
+
+rake 'db:drop'
+rake 'db:create'
+rake 'db:migrate'
 
 route "root to: 'pages#index'"
 
@@ -210,39 +225,6 @@ route 'resources :pages, only: [:index, :show]'
 route 'resources :assets'
 route 'resources :images'
 route 'resources :documents'
-
-create_file 'config/ey.yml', <<-END
-# ey.yml supports many deploy configuration options when committed in an
-# application's repository.
-#
-# Valid locations: REPO_ROOT/ey.yml or REPO_ROOT/config/ey.yml.
-#
-# Examples options (defaults apply to all environments for this application):
-#
-# defaults:
-#   migrate: true                           # Default --migrate choice for ey deploy
-#   migration_command: 'rake migrate'       # Default migrate command to run when migrations are enabled
-#   branch: default_deploy_branch           # Branch/ref to be deployed by default during ey deploy
-#   bundle_without: development test        # The string to pass to bundle install --without ''
-#   maintenance_on_migrate: true            # Enable maintenance page during migrate action (use with caution) (default: true)
-#   maintenance_on_restart: false           # Enable maintanence page during every deploy (default: false for unicorn & passenger)
-#   ignore_database_adapter_warning: false  # Hide the warning shown when the Gemfile does not contain a recognized database adapter (mongodb for example)
-#   your_own_custom_key: 'any attribute you put in ey.yml is available in deploy hooks'
-# environments:
-#   YOUR_ENVIRONMENT_NAME: # All options pertain only to the named environment
-#     any_option: 'override any of the options above with specific options for certain environments'
-#     migrate: false
-#
-# Further information available here:
-# https://support.cloud.engineyard.com/entries/20996661-customize-your-deployment-on-engine-yard-cloud
-#
-# NOTE: Please commit this file into your git repository.
-#
----
-defaults:
-  migrate: false
-  precompile_assets: true
-END
 
 create_file 'config/navigation.rb', <<-END
 # -*- coding: utf-8 -*-
@@ -399,8 +381,14 @@ public/system/**/*
 /public/assets
 END
 
+generate('ornament -f') if yes?("Do you want to generate ornament?")
+
 git :init
 git add: '.'
 git commit: "-m 'Initial Commit'"
+
+run 'ey init'
+git add: '.'
+git commit: "-m 'Generated EngineYard Config'"
 
 rake 'db:seed'
