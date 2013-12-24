@@ -7,3 +7,5 @@ if ActiveRecord::Base.connection.tables.include?("translations")
 
   I18n.backend = I18n::Backend::Chain.new(I18n::Backend::Simple.new, I18n.backend)
 end
+
+I18n.enforce_available_locales = false
