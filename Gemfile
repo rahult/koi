@@ -28,6 +28,8 @@ gem 'i18n-active_record'        , git: 'https://github.com/svenfuchs/i18n-active
                                   branch: 'rails-3.2',
                                   require: 'i18n/active_record'
 
+gem 'rack-cors'                 , require: 'rack/cors'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

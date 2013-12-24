@@ -55,5 +55,12 @@ module Dummy
     config.generators do|g|
       g.fixture_replacement :factory_girl, :dir => "test/factories"
     end
+
+    config.middleware.use Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: [:get, :post, :options, :delete]
+      end
+    end
   end
 end
