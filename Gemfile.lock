@@ -30,6 +30,7 @@ PATH
   remote: .
   specs:
     koi (1.1.0.rc4)
+      active_model_serializers
       activevalidators (~> 2.0.1)
       acts-as-taggable-on (~> 2.4.1)
       cocoon
@@ -76,6 +77,8 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
+    active_model_serializers (0.8.1)
+      activemodel (>= 3.0)
     activemodel (3.2.16)
       activesupport (= 3.2.16)
       builder (~> 3.0.0)
@@ -186,7 +189,7 @@ GEM
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
       responders (~> 1.0.0.rc)
-    jbuilder (1.5.3)
+    jbuilder (2.0.1)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
     journey (1.0.4)

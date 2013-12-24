@@ -101,6 +101,9 @@ Gem::Specification.new do |s|
   # JBuilder JSON
   s.add_dependency 'jbuilder'
 
+  # ActiveRecord serializer
+  s.add_dependency 'active_model_serializers'
+
   # Console Replacement
   s.add_development_dependency 'pry'
 
