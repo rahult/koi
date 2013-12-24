@@ -98,6 +98,9 @@ Gem::Specification.new do |s|
   # Nested Forms
   s.add_dependency 'cocoon'
 
+  # JBuilder JSON
+  s.add_dependency 'jbuilder'
+
   # Console Replacement
   s.add_development_dependency 'pry'
 

@@ -3,6 +3,6 @@ module Koi
     layout 'application'
     has_crud
     defaults :route_prefix => ''
-    respond_to :html, :json, only: [:index,:show]
+    respond_to :html, :json, only: [:index, :show]
   end
 end
