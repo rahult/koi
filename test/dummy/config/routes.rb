@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, path: :members
+  resources :nav_items
   resources :pages
   resources :assets
   resources :images
