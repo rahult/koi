@@ -13,4 +13,3 @@ class NewsItem < ActiveRecord::Base
   end
 
 end
-
