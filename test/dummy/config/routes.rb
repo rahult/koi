@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  namespace(:admin) { resources :product_images }
-
-  resources :products
 
   constraints :subdomain => "mobile" do
     scope :module => "mobile", :as => "mobile" do
@@ -11,6 +8,8 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
+
+  resources :products
 
   resources :categories do
     resources :products, except: [:new, :create, :edit, :update, :destroy]
@@ -26,6 +25,7 @@ Rails.application.routes.draw do
   resources :super_heros
 
   namespace :admin do
+    resources :product_images
     resources :users, path: :members
     resources :super_heros
     resources :news_items
