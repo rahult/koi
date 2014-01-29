@@ -221,6 +221,7 @@ rake 'db:migrate'
 
 route "root to: 'pages#index'"
 
+route 'resources :nav_items, only: [:index, :show]'
 route 'resources :pages, only: [:index, :show]'
 route 'resources :assets'
 route 'resources :images'
